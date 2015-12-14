@@ -16,7 +16,7 @@ io.on('connection', function (socket) {
 		
 		// io.emit  
 		// send to all sockets
-		//send to all sockets but the sender.
+		//send to all sockets but the sender -- socket.broadcast.emit('message', message);
 		io.emit('message', message);  	
 	});
 	socket.emit('message', {
