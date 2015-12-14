@@ -9,16 +9,18 @@ var io = require('socket.io')(http);
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function (socket) {
-	console.log('User connected via socket.io');
+	console.log('User connected via socket.io!');
 	
 	socket.on('message', function (message) {
 		console.log('Message received: ' + message.text);
 		
-		// io.emit  // send to all sockets
-		socket.broadcast.emit('message', message);  //send to all sockets but the sender.	
+		// io.emit  
+		// send to all sockets
+		//send to all sockets but the sender.
+		io.emit('message', message);  	
 	});
 	socket.emit('message', {
-		text: 'Welcome to my Chat App.'
+		text: 'Welcome to my Chat App!'
 	});
 });
 
