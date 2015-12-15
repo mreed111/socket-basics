@@ -18,9 +18,11 @@ io.on('connection', function (socket) {
 		// io.emit  
 		// send to all sockets
 		//send to all sockets but the sender -- socket.broadcast.emit('message', message);
+		console.log('...emitting msg "'+message.text+'" from ' + message.name );
 		io.emit('message', message);  	
 	});
 	socket.emit('message', {
+		name: 'System',
 		text: 'Welcome to my Chat App!',
 		timestamp: moment().valueOf()
 	});

@@ -15,7 +15,7 @@ socket.on('message', function (message) {
 	console.log('New Message:  ');
 	console.log(message.text);
 	
-	$message.append('<p>[' + momentTimestamp.local().format('h:mm:ss a') + ']  ' + userName);
+	$message.append('<p>[' + momentTimestamp.local().format('h:mm:ss a') + ']  ' + message.name);
 	$message.append('<p>' + message.text + '</p>');
 });
 
@@ -31,6 +31,7 @@ $form.on('submit', function (event) {
 	
 	console.log('sending: ' + $message.val());
 	socket.emit('message', {
+		name: userName,
 		text: $message.val(),
 		timestamp: $timeStamp
 	});
