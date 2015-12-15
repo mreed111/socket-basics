@@ -1,16 +1,22 @@
 var socket = io();
 
+var userName = getQueryVariable('name') || 'Anonymous';
+var chatRoom = getQueryVariable('room');
+
+console.log(userName + ' is logged into ' + chatRoom + '...');
+
 socket.on('connect', function () {
 	console.log('Connected to socket.io server!');
 });
 
 socket.on('message', function (message) {
 	var momentTimestamp = moment.utc(message.timestamp);
+	var $message = jQuery('.messages');
 	console.log('New Message:  ');
 	console.log(message.text);
 	
-	jQuery('.messages').append('<p>[' + momentTimestamp.local().format('h:mm:ss a') + ']  ' 
-									  + message.text + '</p>');
+	$message.append('<p>[' + momentTimestamp.local().format('h:mm:ss a') + ']  ' + userName);
+	$message.append('<p>' + message.text + '</p>');
 });
 
 // handles submiitting of new message
