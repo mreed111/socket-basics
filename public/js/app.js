@@ -1,12 +1,19 @@
 var socket = io();
 
 var userName = getQueryVariable('name') || 'Anonymous';
-var chatRoom = getQueryVariable('room');
+var chatRoom = getQueryVariable('room') || 'Anonymous group';
 
 console.log(userName + ' is logged into ' + chatRoom + '...');
 
+// Update h1 tag
+jQuery(".room-title").text(chatRoom);
+
 socket.on('connect', function () {
 	console.log('Connected to socket.io server!');
+	socket.emit('joinChatRoom', {
+		name: userName,
+		room: chatRoom
+	});
 });
 
 socket.on('message', function (message) {
